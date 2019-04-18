@@ -1,5 +1,6 @@
 package io.edrb.stockservice.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import java.time.ZonedDateTime;
 
 @Data
 @Builder
+@AllArgsConstructor
 @Entity(name = "stocks")
 public class Stock {
 
@@ -27,5 +29,5 @@ public class Stock {
     @Min(0)
     private Integer quantity;
 
-
+    public Stock() {}
 }

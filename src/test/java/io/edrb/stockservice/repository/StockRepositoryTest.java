@@ -47,11 +47,47 @@ public class StockRepositoryTest {
         Assertions.assertFalse(stock.isPresent());
     }
 
+    @Test void shouldSaveANewProductStock() {
+        stockRepository.save(vegetableStock());
+
+        Optional<Stock> stock = stockRepository.findById("1");
+
+        Assertions.assertAll(
+                () -> Assertions.assertTrue(stock.isPresent()),
+                () -> Assertions.assertEquals("1", stock.get().getId())
+        );
+    }
+
+    @Test void shouldUpdateExistedProductStock() {
+        entityManager.persist(vegetableStock());
+        entityManager.flush();
+
+        stockRepository.save(newVegetableStock());
+
+        Optional<Stock> updatedStock = stockRepository.findById("1");
+
+        Assertions.assertAll(
+                () -> Assertions.assertTrue(updatedStock.isPresent()),
+                () -> Assertions.assertEquals("1", updatedStock.get().getId()),
+                () -> Assertions.assertEquals(200, updatedStock.get().getQuantity())
+        );
+
+    }
+
     private Stock vegetableStock() {
         return Stock.builder()
                 .id("1")
                 .timestamp(now)
                 .quantity(100)
+                .productId("vegetable")
+                .build();
+    }
+
+    private Stock newVegetableStock() {
+        return Stock.builder()
+                .id("1")
+                .timestamp(now.plusSeconds(30))
+                .quantity(200)
                 .productId("vegetable")
                 .build();
     }
