@@ -70,6 +70,18 @@ public class StockRepositoryTest {
 
     }
 
+    @Test void shouldFindByProductId() {
+        Stock stockSaved = entityManager.persist(vegetableStock());
+        entityManager.flush();
+
+        Optional<Stock> stock = stockRepository.findByProductId("vegetable");
+
+        Assertions.assertAll(
+                () -> Assertions.assertTrue(stock.isPresent()),
+                () -> Assertions.assertEquals(stockSaved.getId(), stock.get().getId())
+        );
+    }
+
     private Stock vegetableStock() {
         return Stock.builder()
                 .timestamp(clock)

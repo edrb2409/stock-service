@@ -1,17 +1,13 @@
 package io.edrb.stockservice.controller;
 
-import io.edrb.stockservice.controller.mapper.UpdateStockMapper;
 import io.edrb.stockservice.model.Stock;
 import io.edrb.stockservice.model.dto.UpdateStockDTO;
 import io.edrb.stockservice.service.StockService;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
