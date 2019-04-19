@@ -2,7 +2,7 @@ package io.edrb.stockservice.controller;
 
 import io.edrb.stockservice.model.Stock;
 import io.edrb.stockservice.model.dto.UpdateStockDTO;
-import io.edrb.stockservice.service.StockService;
+import io.edrb.stockservice.service.UpdateStockService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class UpdateStockControllerTest {
     private WebTestClient webTestClient;
 
     @MockBean
-    private StockService stockService;
+    private UpdateStockService updateStockService;
 
     static ZonedDateTime clock;
 
@@ -39,7 +39,7 @@ public class UpdateStockControllerTest {
                 .timestamp(clock)
                 .build();
 
-        verify(stockService).updateStock(Stock.builder()
+        verify(updateStockService).updateStock(Stock.builder()
                 .productId("vegetables")
                 .quantity(100)
                 .timestamp(clock)

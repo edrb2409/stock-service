@@ -11,11 +11,11 @@ import org.springframework.util.StringUtils;
 
 @Component
 @Slf4j
-public class DefaultStockService implements StockService {
+public class DefaultUpdateStockService implements UpdateStockService {
 
     private final StockRepository repository;
 
-    public DefaultStockService(StockRepository repository) {
+    public DefaultUpdateStockService(StockRepository repository) {
         this.repository = repository;
     }
 

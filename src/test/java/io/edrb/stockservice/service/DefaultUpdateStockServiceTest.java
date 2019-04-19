@@ -17,16 +17,16 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultStockServiceTest {
+public class DefaultUpdateStockServiceTest {
 
-    StockService stockService;
+    UpdateStockService updateStockService;
 
     ZonedDateTime now;
 
     @Mock StockRepository repository;
 
     @BeforeEach void init_() {
-        stockService = new DefaultStockService(repository);
+        updateStockService = new DefaultUpdateStockService(repository);
         now = ZonedDateTime.now();
     }
 
@@ -39,7 +39,7 @@ public class DefaultStockServiceTest {
 
         when(repository.save(vegetableStock)).thenReturn(vegetableStock(now, 100));
 
-        stockService.updateStock(vegetableStock);
+        updateStockService.updateStock(vegetableStock);
     }
 
     @Test void shouldUpdateAProductStock() {
@@ -48,7 +48,7 @@ public class DefaultStockServiceTest {
         when(repository.findById("1")).thenReturn(Optional.of(vegetableStock(now, 100)));
         when(repository.save(newStock)).thenReturn(newStock);
 
-        stockService.updateStock(newStock);
+        updateStockService.updateStock(newStock);
     }
 
     @Test void shouldRaiseAnExceptionWhenTimestampIsBeforeOfStockPreviouslyStored() {
@@ -57,7 +57,7 @@ public class DefaultStockServiceTest {
         when(repository.findById("1")).thenReturn(Optional.of(vegetableStock(now, 100)));
 
         Assertions.assertThrows(OutdatedStockException.class,
-                () -> stockService.updateStock(newStock));
+                () -> updateStockService.updateStock(newStock));
     }
 
     private Stock vegetableStock(ZonedDateTime timestamp, Integer quantity) {
