@@ -3,6 +3,7 @@ package io.edrb.stockservice.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,8 @@ import java.time.ZonedDateTime;
 public class Stock {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
 
     @NotNull
