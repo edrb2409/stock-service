@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,6 +28,7 @@ public class Stock {
     private ZonedDateTime timestamp;
 
     @NotNull
+    @Column(unique = true)
     private String productId;
 
     @NotNull

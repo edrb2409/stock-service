@@ -30,15 +30,15 @@ public class StockRepositoryTest {
     }
 
     @Test void shouldFindAStockBasedOnId() {
-        entityManager.persist(vegetableStock());
+        Stock stockSaved = entityManager.persist(vegetableStock());
         entityManager.flush();
 
-        Optional<Stock> stock = stockRepository.findById("1");
+        Optional<Stock> stock = stockRepository.findById(stockSaved.getId());
 
         Assertions.assertTrue(stock.isPresent());
     }
 
-    @Test void shouldNotFindAnythingIfTimestampIsBeforeOfCurrent() {
+    @Test void shouldNotFindAnythingIfIdDoesNotExists() {
         entityManager.persist(vegetableStock());
         entityManager.flush();
 
@@ -48,27 +48,23 @@ public class StockRepositoryTest {
     }
 
     @Test void shouldSaveANewProductStock() {
-        stockRepository.save(vegetableStock());
+        Stock stockSaved = stockRepository.save(vegetableStock());
 
-        Optional<Stock> stock = stockRepository.findById("1");
+        Optional<Stock> stock = stockRepository.findById(stockSaved.getId());
 
-        Assertions.assertAll(
-                () -> Assertions.assertTrue(stock.isPresent()),
-                () -> Assertions.assertEquals("1", stock.get().getId())
-        );
+        Assertions.assertTrue(stock.isPresent());
     }
 
     @Test void shouldUpdateExistedProductStock() {
-        entityManager.persist(vegetableStock());
+        Stock stockSaved = entityManager.persist(vegetableStock());
         entityManager.flush();
 
-        stockRepository.save(newVegetableStock());
+        stockRepository.save(newVegetableStock(stockSaved.getId()));
 
-        Optional<Stock> updatedStock = stockRepository.findById("1");
+        Optional<Stock> updatedStock = stockRepository.findById(stockSaved.getId());
 
         Assertions.assertAll(
                 () -> Assertions.assertTrue(updatedStock.isPresent()),
-                () -> Assertions.assertEquals("1", updatedStock.get().getId()),
                 () -> Assertions.assertEquals(200, updatedStock.get().getQuantity())
         );
 
@@ -76,16 +72,15 @@ public class StockRepositoryTest {
 
     private Stock vegetableStock() {
         return Stock.builder()
-                .id("1")
                 .timestamp(clock)
                 .quantity(100)
                 .productId("vegetable")
                 .build();
     }
 
-    private Stock newVegetableStock() {
+    private Stock newVegetableStock(String id) {
         return Stock.builder()
-                .id("1")
+                .id(id)
                 .timestamp(clock.plusSeconds(30))
                 .quantity(200)
                 .productId("vegetable")

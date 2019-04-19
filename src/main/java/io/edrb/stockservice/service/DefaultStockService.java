@@ -1,12 +1,16 @@
 package io.edrb.stockservice.service;
 
+import io.edrb.stockservice.exception.NoUniqueProductId;
 import io.edrb.stockservice.exception.OutdatedStockException;
 import io.edrb.stockservice.model.Stock;
 import io.edrb.stockservice.repository.StockRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 @Component
+@Slf4j
 public class DefaultStockService implements StockService {
 
     private final StockRepository repository;
@@ -18,7 +22,7 @@ public class DefaultStockService implements StockService {
     @Override
     public void updateStock(Stock newStock) {
         if(StringUtils.isEmpty(newStock.getId())) {
-            repository.save(newStock);
+            save(newStock);
             return;
         }
 
@@ -26,6 +30,15 @@ public class DefaultStockService implements StockService {
                 .filter(it -> !it.isOutdated(newStock))
                 .orElseThrow(OutdatedStockException::new);
 
-        repository.save(newStock);
+        save(newStock);
+    }
+
+    private void save(Stock newStock) {
+        try {
+            repository.save(newStock);
+        } catch (DataIntegrityViolationException ex) {
+            log.error("Exception: {}", ex.getMessage(), ex);
+            throw new NoUniqueProductId();
+        }
     }
 }
