@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -17,6 +18,7 @@ import java.time.ZonedDateTime;
 public class Stock {
 
     @Id
+    @GeneratedValue
     private String id;
 
     @NotNull
@@ -30,4 +32,8 @@ public class Stock {
     private Integer quantity;
 
     public Stock() {}
+
+    public boolean isOutdated(Stock newStock) {
+        return this.timestamp.compareTo(newStock.timestamp) > 0;
+    }
 }

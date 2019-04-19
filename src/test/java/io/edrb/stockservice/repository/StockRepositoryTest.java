@@ -23,10 +23,10 @@ public class StockRepositoryTest {
     @Autowired
     private StockRepository stockRepository;
 
-    private static ZonedDateTime now;
+    private static ZonedDateTime clock;
 
     @BeforeAll static void init() {
-        now = ZonedDateTime.now();
+        clock = ZonedDateTime.now();
     }
 
     @Test void shouldFindAStockBasedOnId() {
@@ -77,7 +77,7 @@ public class StockRepositoryTest {
     private Stock vegetableStock() {
         return Stock.builder()
                 .id("1")
-                .timestamp(now)
+                .timestamp(clock)
                 .quantity(100)
                 .productId("vegetable")
                 .build();
@@ -86,7 +86,7 @@ public class StockRepositoryTest {
     private Stock newVegetableStock() {
         return Stock.builder()
                 .id("1")
-                .timestamp(now.plusSeconds(30))
+                .timestamp(clock.plusSeconds(30))
                 .quantity(200)
                 .productId("vegetable")
                 .build();
