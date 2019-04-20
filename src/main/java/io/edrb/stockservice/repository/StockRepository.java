@@ -13,6 +13,6 @@ public interface StockRepository extends JpaRepository<Stock, String> {
 
     Optional<Stock> findByProductId(String productId);
 
-    Optional<List<Stock>> findByTimestampBetweenOrderByQuantityDesc(ZonedDateTime timestampStart, ZonedDateTime timestampEnd);
+    Optional<List<Stock>> findTop3ByTimestampBetweenOrderByQuantityDesc(ZonedDateTime timestampStart, ZonedDateTime timestampEnd);
 
 }

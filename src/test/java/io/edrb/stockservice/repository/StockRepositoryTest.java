@@ -90,18 +90,18 @@ public class StockRepositoryTest {
     @Test void shouldReturnProductStocksBetweenRange() {
         Stream.of(
                 dynamicStock(clock.minusDays(1), 2),
-                dynamicStock(clock.minusHours(2), 10),
-                dynamicStock(clock.minusHours(1), 11),
-                dynamicStock(clock.minusMinutes(35), 12)
+                dynamicStock(clock.minusMinutes(15), 10),
+                dynamicStock(clock.minusMinutes(17), 11),
+                dynamicStock(clock.minusMinutes(35), 12),
+                dynamicStock(clock.minusMinutes(19), 7)
         ).forEach(entityManager::persist);
 
         entityManager.flush();
 
-
         DateTimeRange dateTimeRange = RangeGenerator.generateForToday(clock);
 
         Optional<List<Stock>> stocks =
-                stockRepository.findByTimestampBetweenOrderByQuantityDesc(
+                stockRepository.findTop3ByTimestampBetweenOrderByQuantityDesc(
                         dateTimeRange.getFrom(), dateTimeRange.getEnd());
 
         Assertions.assertAll(
