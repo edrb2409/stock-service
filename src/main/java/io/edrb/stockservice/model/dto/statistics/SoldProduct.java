@@ -1,4 +1,4 @@
-package io.edrb.stockservice.model.dto;
+package io.edrb.stockservice.model.dto.statistics;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

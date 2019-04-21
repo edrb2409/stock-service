@@ -1,7 +1,7 @@
 package io.edrb.stockservice.controller;
 
 import io.edrb.stockservice.controller.mapper.StockResponseMapper;
-import io.edrb.stockservice.model.dto.StockResponseDTO;
+import io.edrb.stockservice.model.dto.stock.StockResponseDTO;
 import io.edrb.stockservice.service.QueryStockService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

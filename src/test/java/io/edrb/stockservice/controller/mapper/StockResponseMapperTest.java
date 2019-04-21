@@ -1,7 +1,7 @@
 package io.edrb.stockservice.controller.mapper;
 
 import io.edrb.stockservice.model.Stock;
-import io.edrb.stockservice.model.dto.StockResponseDTO;
+import io.edrb.stockservice.model.dto.stock.StockResponseDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

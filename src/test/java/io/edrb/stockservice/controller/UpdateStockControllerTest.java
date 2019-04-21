@@ -1,7 +1,7 @@
 package io.edrb.stockservice.controller;
 
 import io.edrb.stockservice.model.Stock;
-import io.edrb.stockservice.model.dto.UpdateStockDTO;
+import io.edrb.stockservice.model.dto.stock.UpdateStockDTO;
 import io.edrb.stockservice.service.UpdateStockService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;

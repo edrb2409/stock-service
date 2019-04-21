@@ -1,8 +1,8 @@
 package io.edrb.stockservice.controller.mapper;
 
 import io.edrb.stockservice.model.Stock;
-import io.edrb.stockservice.model.dto.StockInformation;
-import io.edrb.stockservice.model.dto.StockResponseDTO;
+import io.edrb.stockservice.model.dto.stock.StockInformation;
+import io.edrb.stockservice.model.dto.stock.StockResponseDTO;
 
 import java.time.ZonedDateTime;
 

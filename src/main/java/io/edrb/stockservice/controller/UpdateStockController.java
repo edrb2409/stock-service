@@ -1,7 +1,7 @@
 package io.edrb.stockservice.controller;
 
 import io.edrb.stockservice.controller.mapper.UpdateStockMapper;
-import io.edrb.stockservice.model.dto.UpdateStockDTO;
+import io.edrb.stockservice.model.dto.stock.UpdateStockDTO;
 import io.edrb.stockservice.service.UpdateStockService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

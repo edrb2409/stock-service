@@ -1,4 +1,4 @@
-package io.edrb.stockservice.model.dto;
+package io.edrb.stockservice.model.dto.statistics;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.edrb.stockservice.model.StatisticRange;

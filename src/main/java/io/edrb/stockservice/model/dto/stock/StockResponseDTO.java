@@ -1,4 +1,4 @@
-package io.edrb.stockservice.model.dto;
+package io.edrb.stockservice.model.dto.stock;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -10,14 +10,13 @@ import java.time.ZonedDateTime;
 @Data
 @Builder
 @AllArgsConstructor
-public class ProductStockInformation {
-
-    private String id;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
-    private ZonedDateTime timestamp;
+public class StockResponseDTO {
 
     private String productId;
 
-    private Integer quantity;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
+    private ZonedDateTime requestTimestamp;
+
+    private StockInformation stock;
+
 }

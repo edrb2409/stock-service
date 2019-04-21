@@ -1,4 +1,4 @@
-package io.edrb.stockservice.model.dto;
+package io.edrb.stockservice.model.dto.stock;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
 package io.edrb.stockservice.controller.mapper;
 
 import io.edrb.stockservice.model.Stock;
-import io.edrb.stockservice.model.dto.UpdateStockDTO;
+import io.edrb.stockservice.model.dto.stock.UpdateStockDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
