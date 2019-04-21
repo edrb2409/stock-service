@@ -28,10 +28,9 @@ public class DefaultUpdateStockService implements UpdateStockService {
     }
 
     @Override
-    public void updateStock(Stock newStock) {
+    public Stock updateStock(Stock newStock) {
         if(StringUtils.isEmpty(newStock.getId())) {
-            save(newStock);
-            return;
+            return save(newStock);
         }
 
         Optional<Stock> stockFound = repository.findById(newStock.getId());
@@ -48,12 +47,12 @@ public class DefaultUpdateStockService implements UpdateStockService {
                                 .build()
                 ));
 
-        save(newStock);
+        return save(newStock);
     }
 
-    private void save(Stock newStock) {
+    private Stock save(Stock newStock) {
         try {
-            repository.save(newStock);
+            return repository.save(newStock);
         } catch (DataIntegrityViolationException ex) {
             log.error("Exception: {}", ex.getMessage(), ex);
             throw new NoUniqueProductId();

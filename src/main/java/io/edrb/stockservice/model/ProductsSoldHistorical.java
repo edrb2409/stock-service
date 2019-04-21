@@ -3,6 +3,7 @@ package io.edrb.stockservice.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import java.time.ZonedDateTime;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class ProductsSoldHistorical {
 

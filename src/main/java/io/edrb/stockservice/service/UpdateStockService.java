@@ -4,7 +4,7 @@ import io.edrb.stockservice.model.Stock;
 
 public interface UpdateStockService {
 
-    void updateStock(Stock newStock);
+    Stock updateStock(Stock newStock);
 
 
 
