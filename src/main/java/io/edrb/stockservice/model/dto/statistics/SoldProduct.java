@@ -11,6 +11,6 @@ public class SoldProduct {
 
     private String productId;
 
-    private Long itemsSold;
+    private Integer itemsSold;
 
 }
