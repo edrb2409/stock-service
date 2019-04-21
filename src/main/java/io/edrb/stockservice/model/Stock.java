@@ -40,4 +40,8 @@ public class Stock {
     public boolean isOutdated(Stock newStock) {
         return this.timestamp.compareTo(newStock.timestamp) > 0;
     }
+
+    public boolean isASold(Stock newStock) {
+        return this.quantity.compareTo(newStock.quantity) > 0;
+    }
 }

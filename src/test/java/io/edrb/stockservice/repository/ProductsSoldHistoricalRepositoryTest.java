@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.swing.text.html.Option;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +37,7 @@ public class ProductsSoldHistoricalRepositoryTest {
     @Test void shouldSaveANewHistoricalProductSold() {
         ProductsSoldHistorical historical = repository.save(ProductsSoldHistorical
                 .builder()
-                .itemsSold(12L)
+                .itemsSold(12)
                 .productId("vegetable")
                 .timestamp(ZonedDateTime.now())
                 .build());
@@ -71,7 +70,7 @@ public class ProductsSoldHistoricalRepositoryTest {
         );
     }
 
-    private ProductsSoldHistorical dynamicHistorical(ZonedDateTime timestamp, long sold) {
+    private ProductsSoldHistorical dynamicHistorical(ZonedDateTime timestamp, int sold) {
         String uuid = UUID.randomUUID().toString();
 
         return ProductsSoldHistorical.builder()

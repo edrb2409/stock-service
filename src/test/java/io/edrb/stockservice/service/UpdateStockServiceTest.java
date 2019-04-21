@@ -1,7 +1,9 @@
 package io.edrb.stockservice.service;
 
 import io.edrb.stockservice.exception.OutdatedStockException;
+import io.edrb.stockservice.model.ProductsSoldHistorical;
 import io.edrb.stockservice.model.Stock;
+import io.edrb.stockservice.repository.ProductsSoldHistoricalRepository;
 import io.edrb.stockservice.repository.StockRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.ZonedDateTime;
 import java.util.Optional;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -24,9 +26,10 @@ public class UpdateStockServiceTest {
     ZonedDateTime now;
 
     @Mock StockRepository repository;
+    @Mock ProductsSoldHistoricalRepository historicalRepository;
 
     @BeforeEach void init_() {
-        updateStockService = new DefaultUpdateStockService(repository);
+        updateStockService = new DefaultUpdateStockService(repository, historicalRepository);
         now = ZonedDateTime.now();
     }
 
@@ -37,14 +40,17 @@ public class UpdateStockServiceTest {
                 .timestamp(now)
                 .build();
 
+        verifyZeroInteractions(historicalRepository);
+
         when(repository.save(vegetableStock)).thenReturn(vegetableStock(now, 100));
 
         updateStockService.updateStock(vegetableStock);
     }
 
-    @Test void shouldUpdateAProductStock() {
-        Stock newStock = vegetableStock(now.plusSeconds(10), 120);
+    @Test void shouldUpdateAProductStockAndStoreASoldHistorical() {
+        Stock newStock = vegetableStock(now.plusSeconds(10), 90);
 
+//        verify(historicalRepository).save(historicalForVegetable(now.plusSeconds(10), 10));
         when(repository.findById("1")).thenReturn(Optional.of(vegetableStock(now, 100)));
         when(repository.save(newStock)).thenReturn(newStock);
 
@@ -56,6 +62,8 @@ public class UpdateStockServiceTest {
 
         when(repository.findById("1")).thenReturn(Optional.of(vegetableStock(now, 100)));
 
+        verifyZeroInteractions(historicalRepository);
+
         Assertions.assertThrows(OutdatedStockException.class,
                 () -> updateStockService.updateStock(newStock));
     }
@@ -66,6 +74,14 @@ public class UpdateStockServiceTest {
                 .timestamp(timestamp)
                 .quantity(quantity)
                 .productId("vegetable")
+                .build();
+    }
+
+    private ProductsSoldHistorical historicalForVegetable(ZonedDateTime timestamp, int sold) {
+        return ProductsSoldHistorical.builder()
+                .timestamp(timestamp)
+                .productId("vegetable")
+                .itemsSold(sold)
                 .build();
     }
 

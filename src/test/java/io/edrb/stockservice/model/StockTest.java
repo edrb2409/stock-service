@@ -19,14 +19,13 @@ public class StockTest {
 
     @BeforeEach void init() {
         stock = Stock.builder()
-                .id("1")
                 .timestamp(clock)
+                .quantity(10)
                 .build();
     }
 
     @Test void shouldReturnTrueWhenNewStockIsOutdatedOfCurrent() {
         Stock newStock = Stock.builder()
-                .id("1")
                 .timestamp(clock.minusSeconds(10))
                 .build();
 
@@ -35,11 +34,26 @@ public class StockTest {
 
     @Test void shouldReturnFalseWhenNewStockIsNotOutdatedOfCurrent() {
         Stock newStock = Stock.builder()
-                .id("1")
                 .timestamp(clock.plusSeconds(10))
                 .build();
 
         Assertions.assertFalse(stock.isOutdated(newStock));
+    }
+
+    @Test void shouldReturnTrueWhenStockWasSold() {
+        Stock newStock = Stock.builder()
+                .quantity(9)
+                .build();
+
+        Assertions.assertTrue(stock.isASold(newStock));
+    }
+
+    @Test void shouldReturnFalseWhenStockWasNotASold() {
+        Stock newStock = Stock.builder()
+                .quantity(11)
+                .build();
+
+        Assertions.assertFalse(stock.isASold(newStock));
     }
 
 }

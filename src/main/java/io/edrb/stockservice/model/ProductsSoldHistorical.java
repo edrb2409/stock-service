@@ -29,6 +29,6 @@ public class ProductsSoldHistorical {
     private String productId;
 
     @NotNull
-    private Long itemsSold;
+    private Integer itemsSold;
 
 }
